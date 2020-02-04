@@ -1,7 +1,7 @@
-# Setting private Monero testnet network
+# Setting private Loki testnet network
 
-Having private [Monero](https://getmonero.org/) testnet network can be very useful, as you can play around
-with Monero without risking making expensive mistakes on real network. However,
+Having private [Loki](https://loki.network/) testnet network can be very useful, as you can play around
+with Loki without risking making expensive mistakes on real network. However,
 it is not clear how to set up a private testnet network. In this example, this
 is demonstrated.
 
@@ -13,7 +13,7 @@ with other distros.
 
 ## Testnet network
 
-The testnet Monero network will include 3 nodes, each with its own blockchain database
+The testnet Loki network will include 3 nodes, each with its own blockchain database
 and a corresponding wallet on a single computer. The three testnet nodes will be listening
 at the following ports 28080, 38080 and 48080, respectively. As a result, testnet folder structure will be following:
 
@@ -78,7 +78,7 @@ Execute the following commands to create three wallets without password.
 
 **For wallet_01.bin:**
 ```bash
-monero-wallet-cli --testnet --generate-new-wallet ~/testnet/wallet_01.bin  --restore-deterministic-wallet --electrum-seed="sequence atlas unveil summon pebbles tuesday beer rudely snake rockets different fuselage woven tagged bested dented vegan hover rapid fawns obvious muppet randomly seasons randomly" --password "" --log-file ~/testnet/wallet_01.log;
+loki-wallet-cli --testnet --generate-new-wallet ~/testnet/wallet_01.bin  --restore-deterministic-wallet --electrum-seed="sequence atlas unveil summon pebbles tuesday beer rudely snake rockets different fuselage woven tagged bested dented vegan hover rapid fawns obvious muppet randomly seasons randomly" --password "" --log-file ~/testnet/wallet_01.log;
 ```
 
 Resulting address and seed:
@@ -94,7 +94,7 @@ that `monero-wallet-cli` may crash if the blockchain is empty.
 
 **For wallet_02.bin:**
 ```bash
-monero-wallet-cli --testnet --generate-new-wallet ~/testnet/wallet_02.bin  --restore-deterministic-wallet --electrum-seed="deftly large tirade gumball android leech sidekick opened iguana voice gels focus poaching itches network espionage much jailed vaults winter oatmeal eleven science siren winter" --password "" --log-file ~/testnet/wallet_02.log;
+loki-wallet-cli --testnet --generate-new-wallet ~/testnet/wallet_02.bin  --restore-deterministic-wallet --electrum-seed="deftly large tirade gumball android leech sidekick opened iguana voice gels focus poaching itches network espionage much jailed vaults winter oatmeal eleven science siren winter" --password "" --log-file ~/testnet/wallet_02.log;
 ```
 
 Resulting address and seed:
@@ -107,7 +107,7 @@ deftly large tirade gumball android leech sidekick opened iguana voice gels focu
 
 **For wallet_03.bin:**
 ```bash
-monero-wallet-cli --testnet --generate-new-wallet ~/testnet/wallet_03.bin  --restore-deterministic-wallet --electrum-seed="upstairs arsenic adjust emulate karate efficient demonstrate weekday kangaroo yoga huts seventh goes heron sleepless fungal tweezers zigzags maps hedgehog hoax foyer jury knife karate" --password "" --log-file ~/testnet/wallet_03.log;
+loki-wallet-cli --testnet --generate-new-wallet ~/testnet/wallet_03.bin  --restore-deterministic-wallet --electrum-seed="upstairs arsenic adjust emulate karate efficient demonstrate weekday kangaroo yoga huts seventh goes heron sleepless fungal tweezers zigzags maps hedgehog hoax foyer jury knife karate" --password "" --log-file ~/testnet/wallet_03.log;
 ```
 
 Resulting address and seed:
@@ -123,7 +123,7 @@ upstairs arsenic adjust emulate karate efficient demonstrate weekday kangaroo yo
 The node will listen for connections at port 28080 and connect to the two other nodes, i.e., those on ports 38080 and 48080. It will store its blockchain in `~/testnet/node_01`. We are going to set fixed mining difficult at 100. You can change it to whatever suits you. This way we can keep mining blocks faster.
 
 ```bash
-monerod --testnet  --no-igd --hide-my-port --data-dir ~/testnet/node_01 --p2p-bind-ip 127.0.0.1 --log-level 0 --add-exclusive-node 127.0.0.1:38080 --add-exclusive-node 127.0.0.1:48080  --fixed-difficulty 100
+lokid --testnet  --no-igd --hide-my-port --data-dir ~/testnet/node_01 --p2p-bind-ip 127.0.0.1 --log-level 0 --add-exclusive-node 127.0.0.1:38080 --add-exclusive-node 127.0.0.1:48080  --fixed-difficulty 100
 ```
 
 ## Step 3: Start second node
@@ -131,7 +131,7 @@ monerod --testnet  --no-igd --hide-my-port --data-dir ~/testnet/node_01 --p2p-bi
 The node will listen for connections at port 38080 and connect to the two other nodes, i.e., those on ports 28080 and 48080. It will store its blockchain in `~/testnet/node_02`. We set difficult as for the first node.
 
 ```bash
-monerod --testnet --p2p-bind-port 38080 --rpc-bind-port 38081 --zmq-rpc-bind-port 38082 --no-igd --hide-my-port  --log-level 0 --data-dir ~/testnet/node_02 --p2p-bind-ip 127.0.0.1 --add-exclusive-node 127.0.0.1:28080 --add-exclusive-node 127.0.0.1:48080 --fixed-difficulty 100
+lokid --testnet --p2p-bind-port 38080 --rpc-bind-port 38081 --zmq-rpc-bind-port 38082 --no-igd --hide-my-port  --log-level 0 --data-dir ~/testnet/node_02 --p2p-bind-ip 127.0.0.1 --add-exclusive-node 127.0.0.1:28080 --add-exclusive-node 127.0.0.1:48080 --fixed-difficulty 100
 ```
 
 ## Step 4: Start third node
@@ -140,7 +140,7 @@ The node will listen for connections at port 48080 and connect to the two other 
 
 
 ```bash
-monerod --testnet --p2p-bind-port 48080 --rpc-bind-port 48081 --zmq-rpc-bind-port 48082 --no-igd --hide-my-port  --log-level 0 --data-dir ~/testnet/node_03 --p2p-bind-ip 127.0.0.1 --add-exclusive-node 127.0.0.1:28080 --add-exclusive-node 127.0.0.1:38080 --fixed-difficulty 100
+lokid --testnet --p2p-bind-port 48080 --rpc-bind-port 48081 --zmq-rpc-bind-port 48082 --no-igd --hide-my-port  --log-level 0 --data-dir ~/testnet/node_03 --p2p-bind-ip 127.0.0.1 --add-exclusive-node 127.0.0.1:28080 --add-exclusive-node 127.0.0.1:38080 --fixed-difficulty 100
 ```
 
 ## Step 5: Start mining
@@ -153,38 +153,24 @@ For example, to mine into two first wallets, the following commands can be used:
 
 in node_01 (mining to the first wallet):
 ```
-start_mining  9wviCeWe2D8XS82k2ovp5EUYLzBt9pYNW2LXUFsZiv8S3Mt21FZ5qQaAroko1enzw3eGr9qC7X1D7Geoo2RrAotYPwq9Gm8 1
+start_mining
 ```
-
-in node_02 (mining to the second wallet):
-```
-start_mining  9wq792k9sxVZiLn66S3Qzv8QfmtcwkdXgM5cWGsXAPxoQeMQ79md51PLPCijvzk1iHbuHi91pws5B7iajTX9KTtJ4bh2tCh 1
-```
-
-in node_03 (mining to the first wallet as well):
-```
-start_mining  9wviCeWe2D8XS82k2ovp5EUYLzBt9pYNW2LXUFsZiv8S3Mt21FZ5qQaAroko1enzw3eGr9qC7X1D7Geoo2RrAotYPwq9Gm8 1
-```
-
-As can be seen, both node_01 and node_03 mine to the first wallet. The third wallet
-is not used for mining in this example. The reason is that it will receive xmr,
-through transfers, from the remaining wallets.
 
 ## Step 6: Start the wallets
 
 wallet_01:
 ```
-monero-wallet-cli --testnet --trusted-daemon --wallet-file ~/testnet/wallet_01.bin --password '' --log-file ~/testnet/wallet_01.log
+loki-wallet-cli --testnet --trusted-daemon --wallet-file ~/testnet/wallet_01.bin --password '' --log-file ~/testnet/wallet_01.log
 ```
 
 wallet_02:
 ```
-monero-wallet-cli --testnet --daemon-port 38081 --trusted-daemon --wallet-file ~/testnet/wallet_02.bin --password '' --log-file ~/testnet/wallet_02.log
+loki-wallet-cli --testnet --daemon-port 38081 --trusted-daemon --wallet-file ~/testnet/wallet_02.bin --password '' --log-file ~/testnet/wallet_02.log
 ```
 
 wallet_03:
 ```
-monero-wallet-cli --testnet --daemon-port 48081 --trusted-daemon --wallet-file ~/testnet/wallet_03.bin --password '' --log-file ~/testnet/wallet_03.log
+loki-wallet-cli --testnet --daemon-port 48081 --trusted-daemon --wallet-file ~/testnet/wallet_03.bin --password '' --log-file ~/testnet/wallet_03.log
 ```
 
 
@@ -208,6 +194,12 @@ and go to http://127.0.0.1:9999/ .
 
 The tmux script to automatically start the three nodes and wallets,
 and the explorer is [here](https://github.com/moneroexamples/private-testnet/blob/master/tmux-privatexmr.sh). It assumes that the private testnet nodes and wallets are in `~/testnet/` and the onion explorer executable `xmrblocks` is in `~/onion-monero-blockchain-explorer/build/'.
+
+## monitor using tcpdump
+
+```bash
+sudo tcpdump -i lo -w capture_file
+```
 
 ## How can you help?
 
