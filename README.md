@@ -199,6 +199,8 @@ and the explorer is [here](https://github.com/moneroexamples/private-testnet/blo
 
 ```bash
 sudo tcpdump -i lo -w capture_file
+
+sudo tcpdump -i lo "port 22222" -w capture_file
 ```
 
 ## How can you help?
